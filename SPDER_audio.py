@@ -47,7 +47,8 @@ torch.manual_seed(4)
 
 if version == "SPDER":
     def activation_func(x):
-        #return torch.sin(x) * torch.sqrt(torch.maximum(torch.abs(x), torch.tensor(1e-43, requires_grad=True)))
+        # Audio uses sin(x)*arctan(x), which was empirically optimal for this
+        # modality. The paper's sin(x)*sqrt(|x|) is used for image/video/superres.
         return torch.sin(x) * torch.arctan(x)
     test_PE = False
     test_SIREN = False
